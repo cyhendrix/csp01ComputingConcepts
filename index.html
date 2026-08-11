@@ -30,6 +30,13 @@ body{font-family:Arial,sans-serif;background:#f8f7fb;color:#23232a;margin:0}main
 <div class="callout"><strong>Finish Line</strong><div id="total" style="font-size:20px;margin-top:8px">Total score: 0/13</div><p>Try for a perfect score before moving on.</p></div>
 </main>
 <script>
+function shuffleSelect(select){
+  const placeholder=select.options[0];
+  const choices=Array.from(select.options).slice(1);
+  for(let i=choices.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[choices[i],choices[j]]=[choices[j],choices[i]];}
+  select.innerHTML='';select.appendChild(placeholder);choices.forEach(o=>select.appendChild(o));select.selectedIndex=0;
+}
+document.querySelectorAll('select').forEach(shuffleSelect);
 const scores={a:0,b:0,c:0};function update(){s1.textContent=scores.a+'/4';s2.textContent=scores.b+'/5';s3.textContent=scores.c+'/4';total.textContent='Total score: '+(scores.a+scores.b+scores.c)+'/13'}
 check1.addEventListener('click',()=>{const ans=['ENIAC','Von Neumann Architecture','Transistor','Qbits'];let n=0;ans.forEach((a,i)=>{if(document.getElementById('t'+(i+1)).value===a)n++});scores.a=n;f1.textContent=n===4?'Excellent — the computer evolution challenge is complete.':n+' of 4 correct. Review the major developments in computer history.';update()});
 check2.addEventListener('click',()=>{const ans=['CPU','RAM','ROM','Motherboard','SSD'];let n=0;ans.forEach((a,i)=>{if(document.getElementById('h'+(i+1)).value===a)n++});scores.b=n;f2.textContent=n===5?'Great job — all hardware components are correct.':n+' of 5 correct. Think about processing, memory, the motherboard, and storage.';update()});
